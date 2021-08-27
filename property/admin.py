@@ -9,6 +9,8 @@ class FlatAdmin(admin.ModelAdmin):
 
     list_display = ['address', 'price', 'town',
                     'construction_year', 'new_building']
+    
+    list_filter = ['new_building']
 
 
 admin.site.register(Flat, FlatAdmin)
