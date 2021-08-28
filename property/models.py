@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 
@@ -46,9 +47,22 @@ class Flat(models.Model):
         null=True,
         blank=True,
         db_index=True)
+
     new_building = models.NullBooleanField(
         verbose_name='Является ли новостройкой',
     )
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
+class Report(models.Model):
+    snitch = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        verbose_name='Осведомитель')
+    reported_flat = models.ForeignKey(
+        'Flat',
+        on_delete=models.CASCADE,
+        verbose_name='Обвиняемая квартира')
+    text = models.TextField(verbose_name='Текст жалобы')
