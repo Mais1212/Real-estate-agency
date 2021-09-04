@@ -8,7 +8,10 @@ class Flat(models.Model):
     owner = models.CharField('ФИО владельца', max_length=200)
     owners_phonenumber = models.CharField(
         'Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField(blank=True)
+    owner_pure_phone = PhoneNumberField(
+        blank=True,
+        verbose_name='Стандартизованный номер владельца'
+    )
     created_at = models.DateTimeField(
         'Когда создано объявление',
         default=timezone.now,
@@ -56,7 +59,8 @@ class Flat(models.Model):
     )
     liked_by = models.ManyToManyField(
         User,
-        verbose_name='Пользователи, лайкнвушиее пост')
+        verbose_name='Пользователи, лайкнвушиее пост'
+    )
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
@@ -66,9 +70,33 @@ class Report(models.Model):
     snitch = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Осведомитель')
+        verbose_name='Осведомитель'
+    )
     reported_flat = models.ForeignKey(
         'Flat',
         on_delete=models.CASCADE,
-        verbose_name='Обвиняемая квартира')
+        verbose_name='Обвиняемая квартира'
+    )
     text = models.TextField(verbose_name='Текст жалобы')
+
+    def __str__(self):
+        return f'{self.reported_flat}'
+
+
+class Owner(models.Model):
+    owner = models.CharField('ФИО владельца', max_length=200)
+    phonenumber = models.CharField(
+        'Номер владельца', max_length=20
+    )
+    pure_phone = PhoneNumberField(
+        blank=True,
+        verbose_name='Стандартизованный номер владельца'
+    )
+    apartments_in_property = models.ManyToManyField(
+        'Flat',
+        verbose_name='Квартиры в собственности',
+        related_name='Owner'
+    )
+
+    def __str__(self):
+        return f'{self.owner}'
