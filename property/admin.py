@@ -19,7 +19,7 @@ class FlatAdmin(admin.ModelAdmin):
 
     list_filter = ['new_building']
 
-    inlines = [FlatInLine]
+    inlines = [FlatInLine]  
     raw_id_fields = ['liked_by']
 
 
