@@ -11,7 +11,7 @@ def normalize_number(apps, schema_editor):
         owner_number = flat.owners_phonenumber
         flat.owner_pure_phone = phonenumbers.parse(
             owner_number,
-            "RU"
+            'RU'
         )
         if phonenumbers.is_possible_number(flat.owner_pure_phone):
             flat.save()
