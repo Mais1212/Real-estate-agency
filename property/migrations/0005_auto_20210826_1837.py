@@ -5,7 +5,6 @@ from django.db import migrations
 
 def chek_for_new_building(apps, schema_editor):
     Flats = apps.get_model('property', 'Flat')
-    print(Flats)
 
     for flat in Flats.objects.all():
         flat.new_building = flat.construction_year >= 2015
