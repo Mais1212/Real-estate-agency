@@ -8,9 +8,7 @@ def chek_for_new_building(apps, schema_editor):
     print(Flats)
 
     for flat in Flats.objects.all():
-        flat.new_building = False
-        if flat.construction_year >= 2015:
-            flat.new_building = True
+        flat.new_building = flat.construction_year >= 2015
         flat.save()
 
 
