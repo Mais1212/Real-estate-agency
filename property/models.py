@@ -56,6 +56,7 @@ class Flat(models.Model):
 
     new_building = models.NullBooleanField(
         verbose_name='Является ли новостройкой',
+        db_index=True,
     )
     liked_by = models.ManyToManyField(
         User,
