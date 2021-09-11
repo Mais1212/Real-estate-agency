@@ -60,7 +60,8 @@ class Flat(models.Model):
     )
     liked_by = models.ManyToManyField(
         User,
-        verbose_name='Пользователи, лайкнвушиее пост'
+        verbose_name='Пользователи, лайкнвушиее пост',
+        related_name='Liked_user'
     )
 
     def __str__(self):
@@ -71,12 +72,14 @@ class Report(models.Model):
     snitch = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        verbose_name='Осведомитель'
+        verbose_name='Осведомитель',
+        related_name='Informer'
     )
     reported_flat = models.ForeignKey(
         'Flat',
         on_delete=models.CASCADE,
-        verbose_name='Обвиняемая квартира'
+        verbose_name='Обвиняемая квартира',
+        related_name='Accused_flat'
     )
     text = models.TextField(verbose_name='Текст жалобы')
 
